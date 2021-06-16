@@ -12,7 +12,7 @@ namespace WebApplication9.Repository
 
         IEnumerable<Product> GetProducts(); // R
 
-        Product GetProductByProductId(int productId); // R
+        List<Product> GetProductByProductId(int productId); // R
 
         void UpdateProduct(Product product); //U
 

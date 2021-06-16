@@ -31,14 +31,22 @@ namespace WebApplication6.Repository
         }
 
         //  Get Single Product
-        public Product GetProductByProductId(int productId)
+        public List<Product> GetProductByProductId(int productId)
         {
+
+
+
+            List<Product> productList = new List<Product>(); 
+
             using (IDbConnection dbCoon = new SqlConnection(SharedConnection.Value))
             {
                 var param = new DynamicParameters();
                 param.Add("@ProductId", productId);
 
-                return (Product)dbCoon.Query<Product>("Usp_Get_Productby_ProductId", param, null, true, 0,commandType:CommandType.StoredProcedure);
+                var item = dbCoon.Query<Product>("Usp_Get_Productby_ProductId", param, null, true, 0, commandType: CommandType.StoredProcedure);
+                productList.Add((Product)item);
+
+                return productList; //(Product)dbCoon.Query<Product>("Usp_Get_Productby_ProductId", param, null, true, 0,commandType:CommandType.StoredProcedure);
             }
 
         }
