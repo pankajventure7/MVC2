@@ -36,19 +36,21 @@ namespace WebApplication6.Repository
 
 
 
-            List<Product> productList = new List<Product>(); 
+            List<Product> productList = new List<Product>();
+
+
 
             using (IDbConnection dbCoon = new SqlConnection(SharedConnection.Value))
             {
                 var param = new DynamicParameters();
                 param.Add("@ProductId", productId);
-
-                var item = dbCoon.Query<Product>("Usp_Get_Productby_ProductId", param, null, true, 0, commandType: CommandType.StoredProcedure);
-                productList.Add((Product)item);
-
-                return productList; //(Product)dbCoon.Query<Product>("Usp_Get_Productby_ProductId", param, null, true, 0,commandType:CommandType.StoredProcedure);
+                var item = dbCoon.Query<Product>("Usp_Get_Productby_ProductId", param, commandType: CommandType.StoredProcedure).ToList();
+                if (item != null && item.Count > 0)
+                {
+                    productList.AddRange(item);
+                }
+                return productList;
             }
-
         }
 
 
@@ -64,10 +66,9 @@ namespace WebApplication6.Repository
                 {
                     var param = new DynamicParameters();
                     param.Add("@Name", product.Name);
-                    param.Add("@Quantity", product.Quantity);
-                    param.Add("@Color", product.Color);
+                    param.Add("@type", product.type);
                     param.Add("@Price", product.Price);
-                    param.Add("@ProductCode", product.ProductCode);
+                    param.Add("@Date", product.date);
                     var result = con.Execute("Usp_Insert_Product", param, transaction, 0, CommandType.StoredProcedure);
                     if (result > 0)
                     {
@@ -95,10 +96,9 @@ namespace WebApplication6.Repository
             {
                 var param = new DynamicParameters();
                 param.Add("@Name", product.Name);
-                param.Add("@Quantity", product.Quantity);
-                param.Add("@Color", product.Color);
+                param.Add("@type", product.Type);
                 param.Add("@Price", product.Price);
-                param.Add("@ProductCode", product.ProductCode);
+                param.Add("@Date", product.date);
                 param.Add("@ProductId", product.ProductId);
                 var result = con.Execute("Usp_Update_Product", param, transaction, 0, CommandType.StoredProcedure);
                 if (result > 0)
@@ -121,5 +121,18 @@ namespace WebApplication6.Repository
             var result = con.Query<bool>("Usp_CheckProductExists", param, null, false, 0, CommandType.StoredProcedure).FirstOrDefault();
             return result;
         }
+        public List<dynamic> getSum()
+         {
+            List<dynamic> productList = new List<dynamic>();
+            using (IDbConnection dbCoon = new SqlConnection(SharedConnection.Value))
+            {
+               
+                List<dynamic> sum = dbCoon.Query("add_price", null, null, true, 0, CommandType.StoredProcedure).ToList();
+                productList.AddRange(sum);
+                return productList;
+            }
+        }
+
+       
     }
 }

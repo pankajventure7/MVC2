@@ -17,5 +17,7 @@ namespace WebApplication9.Repository
         void UpdateProduct(Product product); //U
 
         void DeleteProduct(int productId); //D
+
+        List<dynamic> getSum();
     }
 }
