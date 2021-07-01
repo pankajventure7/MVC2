@@ -1,0 +1,33 @@
+// TO INSERT INTO DB sp
+GO
+Create PROCEDURE [dbo].[Usp_Insert_Product] 
+ @Name nvarchar(50), 
+@Type nvarchar(50),@Price float, @PaidBy nvarchar(50), @Date datetime
+
+AS
+INSERT INTO [dbo].[Expense]
+           ([Name]
+		   ,[Type]
+		   ,[Price]
+           ,[PaidBy]
+           ,[Date]
+           )
+     VALUES
+           (@Name
+           ,@Type
+		   ,@Price
+           ,@PaidBy
+           ,@Date
+           )
+
+
+// To create table
+CREATE TABLE Expense (
+    ExpenseId int IDENTITY(1,1) PRIMARY KEY,
+    Name nvarchar(50) NOT NULL,
+    Type nvarchar(50),
+    Price float,
+	PaidBy nvarchar(50),
+	Date datetime
+    
+);
