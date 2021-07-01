@@ -10,7 +10,7 @@
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <input type="hidden" asp-for="ProductId" />
+            <input type="hidden" asp-for="ExpenseId" />
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
                 <input asp-for="Name" class="form-control" />
@@ -25,6 +25,11 @@
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PaidBy" class="control-label"></label>
+                <input asp-for="PaidBy" class="form-control" />
+                <span asp-validation-for="PaidBy" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="date" class="control-label"></label>

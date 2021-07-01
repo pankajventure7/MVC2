@@ -10,6 +10,8 @@ namespace WebApplication9.Models
         public string Name { get; set; }
         public string type { get; set; }
         public decimal Price { get; set; }
+        
+        public string PaidBy { get; set; }
         public DateTime date { get; set; }
 
         

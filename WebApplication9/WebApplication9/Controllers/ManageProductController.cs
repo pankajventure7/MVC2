@@ -78,7 +78,7 @@ namespace WebApplication9.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, [Bind("ProductId,Name,Quantity,Color,Price,ProductCode")] Product product)
         {
-            if (id != product.ProductId)
+            if (id != product.ExpenseId)
             {
                 return RedirectToAction("Index");
             }

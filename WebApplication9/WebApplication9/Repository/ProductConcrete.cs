@@ -15,11 +15,11 @@ namespace WebApplication6.Repository
 
 
         // Delete
-        public void DeleteProduct(int productId)
+        public void DeleteProduct(int expenseId)
         {
             using var con = new SqlConnection(SharedConnection.Value);
             var param = new DynamicParameters();
-            param.Add("@ProductId", productId);
+            param.Add("@ProductId", expenseId);
             var result = con.Execute("Usp_Delete_Product", param, null, 0, CommandType.StoredProcedure);
         }
 
@@ -31,7 +31,7 @@ namespace WebApplication6.Repository
         }
 
         //  Get Single Product
-        public List<Product> GetProductByProductId(int productId)
+        public List<Product> GetProductByProductId(int expenseId)
         {
 
 
@@ -43,7 +43,7 @@ namespace WebApplication6.Repository
             using (IDbConnection dbCoon = new SqlConnection(SharedConnection.Value))
             {
                 var param = new DynamicParameters();
-                param.Add("@ProductId", productId);
+                param.Add("@ProductId", expenseId);
                 var item = dbCoon.Query<Product>("Usp_Get_Productby_ProductId", param, commandType: CommandType.StoredProcedure).ToList();
                 if (item != null && item.Count > 0)
                 {
@@ -68,6 +68,7 @@ namespace WebApplication6.Repository
                     param.Add("@Name", product.Name);
                     param.Add("@type", product.type);
                     param.Add("@Price", product.Price);
+                    param.Add("@PaidBy", product.PaidBy);
                     param.Add("@Date", product.date);
                     var result = con.Execute("Usp_Insert_Product", param, transaction, 0, CommandType.StoredProcedure);
                     if (result > 0)
@@ -98,8 +99,9 @@ namespace WebApplication6.Repository
                 param.Add("@Name", product.Name);
                 param.Add("@type", product.Type);
                 param.Add("@Price", product.Price);
+                param.Add("@PaidBy", product.PaidBy);
                 param.Add("@Date", product.date);
-                param.Add("@ProductId", product.ProductId);
+                param.Add("@ProductId", product.ExpenseId);
                 var result = con.Execute("Usp_Update_Product", param, transaction, 0, CommandType.StoredProcedure);
                 if (result > 0)
                 {
