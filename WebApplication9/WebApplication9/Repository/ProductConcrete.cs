@@ -55,36 +55,46 @@ namespace WebApplication6.Repository
 
 
         //  Insert
-        public void InsertProduct(ProductVm product)
+        public void InsertProduct(List<ProductVm> product)
         {
-            try
-            {
-                using var con = new SqlConnection(SharedConnection.Value);
-                con.Open();
-                var transaction = con.BeginTransaction();
+
+            var result = 0;
+
+
                 try
                 {
-                    var param = new DynamicParameters();
-                    param.Add("@Name", product.Name);
-                    param.Add("@type", product.type);
-                    param.Add("@Price", product.Price);
-                    param.Add("@PaidBy", product.PaidBy);
-                    param.Add("@Date", product.date);
-                    var result = con.Execute("Usp_Insert_Product", param, transaction, 0, CommandType.StoredProcedure);
+                    using var con = new SqlConnection(SharedConnection.Value);
+                    con.Open();
+                    var transaction = con.BeginTransaction();
+                    try
+                    {
+                        foreach (ProductVm product1 in product)
+                        {
+                            var param = new DynamicParameters();
+                            param.Add("@Name", product1.Name);
+                            param.Add("@type", product1.type);
+                            param.Add("@Price", product1.Price);
+                            param.Add("@PaidBy", product1.PaidBy);
+                            param.Add("@Date", product1.date);
+                            result = con.Execute("Usp_Insert_Product", param, transaction, 0, CommandType.StoredProcedure);
+                          
+                        }
                     if (result > 0)
                     {
                         transaction.Commit();
                     }
+
+                }
+                    catch (Exception ex)
+                    {
+                        transaction.Rollback();
+                    }
                 }
                 catch (Exception ex)
                 {
-                    transaction.Rollback();
+                    throw;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
+            
         }
 
         // Update
@@ -133,6 +143,10 @@ namespace WebApplication6.Repository
                 productList.AddRange(sum);
                 return productList;
             }
+        }
+        public void BulkUpload()
+        {
+
         }
 
        
