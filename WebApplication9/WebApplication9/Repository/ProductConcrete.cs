@@ -55,7 +55,7 @@ namespace WebApplication6.Repository
 
 
         //  Insert
-        public void InsertProduct(List<ProductVm> product)
+        public void InsertProduct(HashSet<ProductVm> product)
         {
 
             var result = 0;
@@ -149,6 +149,9 @@ namespace WebApplication6.Repository
 
         }
 
-       
+        public void InsertProduct(List<ProductVm> product)
+        {
+            throw new NotImplementedException();
+        }
     }
 }
