@@ -30,7 +30,7 @@ namespace WebApplication9.Controllers
         {
             if (ModelState.IsValid)
             {
-                _product.InsertProduct(product);
+              //  _product.InsertProduct(product);
                 return RedirectToAction("Index");
             }
             return View(product);

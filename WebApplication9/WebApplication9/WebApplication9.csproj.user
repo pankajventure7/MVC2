@@ -9,6 +9,7 @@
     <WebStackScaffolding_IsReferencingScriptLibrariesSelected>False</WebStackScaffolding_IsReferencingScriptLibrariesSelected>
     <WebStackScaffolding_LayoutPageFile />
     <ActiveDebugProfile>WebApplication9</ActiveDebugProfile>
+    <NameOfLastUsedPublishProfile>C:\Users\Anju Munjal\Desktop\MVC2\WebApplication9\WebApplication9\Properties\PublishProfiles\registry.hub.docker.com_pankajyadav107.pubxml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <DebuggerFlavor>ProjectDebugger</DebuggerFlavor>

@@ -48,7 +48,7 @@ namespace WebApplication9.Controllers
         
         [HttpPost]
         [Route("Create")]
-        public void add(ProductVm product)
+        public void add(List<ProductVm> product)
         {
             _product.InsertProduct(product);
         }

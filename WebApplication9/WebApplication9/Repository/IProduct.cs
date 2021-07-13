@@ -8,7 +8,7 @@ namespace WebApplication9.Repository
 {
    public interface IProduct
     {
-        void InsertProduct(ProductVm product); // C
+        void InsertProduct(List<ProductVm> product); // C
 
         IEnumerable<Product> GetProducts(); // R
 
