@@ -5,3 +5,4 @@ dotnet build
 ECHO building done
 dotnet run
 Echo program is running
+ECHO 
