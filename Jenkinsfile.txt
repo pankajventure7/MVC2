@@ -1,0 +1,40 @@
+pipeline {
+   
+agent any
+   environment{
+       NEW_VERSION = "${env.BUILD_ID}"
+   }
+    stages{
+        stage('CheckOut'){
+           
+            steps{bat 'cd C:\\Users\\Anju Munjal\\Desktop\\MVC'
+            echo "Checking Out"
+            git 'https://github.com/pankajventure7/MVC2.git'
+            echo 'code successfully checked in '
+            }
+        }
+       stage('Build'){
+           steps{
+                bat'''ECHO OFF
+        cd C:\\Users\\Anju Munjal\\Desktop\\MVC\\WebApplication9\\WebApplication9
+        ECHO data created
+        dotnet build'''
+              
+               echo "Building version ${NEW_VERSION}"
+              
+           }
+       }
+   }
+ post {
+        always {
+            cleanWs()
+          
+    }
+    success {
+             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${NEW_VERSION} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "SUCCESS CI: Project name -> ${env.JOB_NAME}", to: "pankajcse107@gmail.com, pankaj14.6.1994@gmail.com";
+         }
+     failure {
+             mail bcc: '', body: "<b>Example</b><br>Project: ${env.JOB_NAME} <br>Build Number: ${NEW_VERSION} <br> URL de build: ${env.BUILD_URL}", cc: '', charset: 'UTF-8', from: '', mimeType: 'text/html', replyTo: '', subject: "Failure CI: Project name -> ${env.JOB_NAME}", to: "pankajcse107@gmail.com, pankaj14.6.1994@gmail.com";
+         }
+    }
+}
